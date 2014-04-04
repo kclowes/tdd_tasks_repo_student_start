@@ -12,4 +12,8 @@ class TasksRepository
   def all
     @tasks_table.to_a
   end
+
+  def find(id)
+    @tasks_table.where(:id => id).to_a.first
+  end
 end

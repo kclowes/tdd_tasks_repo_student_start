@@ -26,4 +26,12 @@ describe TasksRepository do
     ]
     expect(repo.all).to eq expected_tasks
   end
+  it 'allows for creating of a task' do
+    repo = TasksRepository.new(db)
+    repo.create({:name => "Do some stuff"})
+    repo.create({:name => "Do some other stuff"})
+    expected_task =
+      {:id => 1, :name => "Do some stuff"}
+    expect(repo.find(1)).to eq expected_task
+  end
 end

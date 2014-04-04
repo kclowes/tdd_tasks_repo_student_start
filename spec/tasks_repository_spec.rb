@@ -34,4 +34,21 @@ describe TasksRepository do
       {:id => 1, :name => "Do some stuff"}
     expect(repo.find(1)).to eq expected_task
   end
+  it 'allows for creating of a task' do
+    repo = TasksRepository.new(db)
+    repo.create({:name => "Do some stuff"})
+    repo.update( {:id => 1}, {:name => "Do more stuff"})
+    expected_task =
+      {:id => 1, :name => "Do more stuff"}
+    expect(repo.find(1)).to eq expected_task
+  end
+  it 'deletes a task' do
+    repo = TasksRepository.new(db)
+    repo.create({:name => "Do some stuff"})
+    repo.create({:name => "Do some other stuff"})
+    repo.delete(:id => 1)
+    expected_task =
+      [{:id => 2, :name => "Do some other stuff"}]
+    expect(repo.all).to eq expected_task
+  end
 end
